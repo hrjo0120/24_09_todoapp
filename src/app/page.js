@@ -29,7 +29,7 @@ const useTodoStatus = () => {
       content: newContent,
       regDate: dateToStr(new Date()),
     };
-    setTodos((todos) => [...todos, newTodo]);
+    setTodos((todos) => [newTodo, ...todos]); // 추가되는 순서 변경, 새로 추가되는 것을 앞으로, 뒤에는 원래 todos의 있던 것들
   };
   const removeTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id != id);
