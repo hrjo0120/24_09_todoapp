@@ -14,8 +14,9 @@ import {
 } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import { FaBars } from 'react-icons/fa';
-import theme from './theme';
+
 import dateToStr from './dateUtil';
+import RootTheme from './theme';
 
 const useTodoStatus = () => {
   console.log('실행 1');
@@ -216,8 +217,16 @@ const App = () => {
                   className="tw-pt-3"
                   label={`날짜 : ${todo.regDate}`}
                   variant="outlined"></Chip>
-                <div className="tw-p-8 tw-rounded-[15px] tw-shadow tw-whitespace-pre-wrap tw-leading-relaxed">
-                  <Box sx={{ color: 'secondary.dark' }}>할 일 : {todo.content}</Box>
+                <div className="tw-flex tw-p-8 tw-rounded-[15px] ">
+                  <Button className="tw-flex-shrink-0 tw-rounded-[20px_0_0_20px] hover:tw-bg-blue-300 tw-items-center">
+                    <span>체크박스</span>
+                  </Button>
+                  <div className="tw-flex-grow tw-text-[--mui-color-success-main] hover:tw-text-[--mui-color-info-main] tw-shadow tw-whitespace-pre-wrap tw-leading-relaxed tw-break-words">
+                    할 일 : {todo.content}
+                  </div>
+                  <div className="tw-flex-shrink-0 tw-bg-green-500 tw-w-[150px]">
+                    삭제 버튼 예정
+                  </div>
                 </div>
               </div>
             </li>
@@ -229,6 +238,7 @@ const App = () => {
 };
 
 export default function themeApp() {
+  const theme = RootTheme();
   console.log('실행 2');
 
   return (

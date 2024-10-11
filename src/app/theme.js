@@ -1,20 +1,51 @@
 import { createTheme } from '@mui/material';
-import { create } from '@mui/material/styles/createTransitions';
-const theme = createTheme({
-  typography: {
-    fontFamily: 'GmarketSansMedium',
-  },
-  palette: {
-    type: 'light',
-    primary: {
-      main: '#3f51b5',
-    },
-    secondary: {
-      main: '#f50057',
-      // dark: '#afafaf', // 직접 정의할 경우, 정의해 준 컬러가 들어감. 정의하지 않을 경우 main의 dark가 설정됨
-    },
-  },
-});
-export default theme;
+import * as React from 'react';
 
-// Material-UI Theme Creator 는 나중에 참고할 것
+const muiThemePaletteKeys = [
+  'background',
+  'error',
+  'info',
+  'primary',
+  'secondary',
+  'success',
+  'text',
+  'warning',
+];
+
+export default function RootTheme() {
+  const theme = createTheme({
+    typography: {
+      fontFamily: 'GmarketSansMedium',
+    },
+    palette: {
+      type: 'light',
+      primary: {
+        main: '#3f51b5',
+      },
+      secondary: {
+        main: '#f50057',
+      },
+      background: {
+        default: '#fff',
+        paper: '#fff',
+      },
+    },
+  });
+
+  React.useEffect(() => {
+    const r = document.querySelector(':root');
+    muiThemePaletteKeys.forEach((paletteKey) => {
+      const themeColorObj = theme.palette[paletteKey];
+      // console.log(themeColor);
+      for (const key in themeColorObj) {
+        // console.log(key);
+        if (Object.hasOwnProperty.call(themeColorObj, key)) {
+          const colorVal = themeColorObj[key];
+          r.style.setProperty(`--mui-color-${paletteKey}-${key}`, colorVal);
+        }
+      }
+    });
+  }, []);
+
+  return theme;
+}
